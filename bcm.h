@@ -36,9 +36,18 @@
 #define TIMER_ADDR   (PERIPH_BASE + 0x00B400)
 #define IRQ_ADDR     (PERIPH_BASE + 0x00B200)
 #define GPU_MAILBOX_ADDR (PERIPH_BASE + 0x00B880)
+#define CM_PWM_ADDR    (PERIPH_BASE + 0x1010a0) // Fonte: https://www.scribd.com/doc/127599939/BCM2835-Audio-clocks
 
 
 #define CORE_ADDR    0x40000000
+
+
+typedef struct {
+   volatile uint32_t ctl;   // Clock manager PWM control register (offset 0xA0)
+   volatile uint32_t div;   // Clock manager PWM divisor register (offset 0xA4)
+} cm_pwm_reg_t;
+#define CM_PWM_REG(X) ((volatile cm_pwm_reg_t*)(CM_PWM_ADDR))->X  // Usando CM_PWM_ADDR = PERIPH_BASE + 0x1010a0
+
 
 /*
  * Periférico PWM
