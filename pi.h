@@ -33,5 +33,8 @@ void uart_putc(char c);
 void uart_puts(char *s);
 char uart_getc(void);
 
+void pwm_init(unsigned channel);
+void pwm_set_duty_cycle(unsigned channel, unsigned range, unsigned data);
+
 #endif
 

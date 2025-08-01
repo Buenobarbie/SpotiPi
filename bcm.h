@@ -30,13 +30,32 @@
 #endif
 
 #define GPIO_ADDR    (PERIPH_BASE + 0x200000)
+#define PWM_ADDR     (PERIPH_BASE + 0x20C000) // Fonte: p.141 https://elinux.org/BCM2835_datasheet_errata#p142.2F143_register_table
 #define AUX_ADDR     (PERIPH_BASE + 0x215000)
 #define AUX_MU_ADDR  (PERIPH_BASE + 0x215040)
 #define TIMER_ADDR   (PERIPH_BASE + 0x00B400)
 #define IRQ_ADDR     (PERIPH_BASE + 0x00B200)
 #define GPU_MAILBOX_ADDR (PERIPH_BASE + 0x00B880)
 
+
 #define CORE_ADDR    0x40000000
+
+/*
+ * Periférico PWM
+ */
+typedef struct {
+   volatile uint32_t ctl;   // PWM Control; 0x0 ate 0x3
+   volatile uint32_t sta;   // PWM Status; 0x4 ate 0x7
+   volatile uint32_t dmac;  // PWM DMA configuration; 0x8 ate 0xB
+   unsigned : 32;           // VAZIO de 0xC ate 0xF
+   volatile uint32_t rng1;  // PWM Channel 1 Range
+   volatile uint32_t dat1;  // PWM Channel 1 Data
+   volatile uint32_t fif1;  // PWM FIFO 1
+   volatile uint32_t rng2;  // PWM Channel 2 Range
+   volatile uint32_t dat2;  // PWM Channel 2 Data
+} pwm_reg_t;
+#define PWM_REG(X)  ((volatile pwm_reg_t*)(PWM_ADDR))->X
+
 
 /*
  * Periférico GPIO

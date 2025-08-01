@@ -144,3 +144,22 @@ void uart_puts(char *);
  * Lê um byte através da uart.
  ***/
 char uart_getc(void);
+
+/***
+ * pwm_init
+ * -- parâmtros: channel (canal PWM, 0 ou 1)
+ * -- retorno -
+ * Inicializa o periférico PWM no canal especificado.
+ * Deve ser chamado antes de usar pwm_set_duty_cycle.
+ ***/
+void pwm_init(unsigned channel);
+
+/***
+ * pwm_set_duty_cycle
+ * -- parâmtros: channel (canal PWM, 0 ou 1)
+ * --            range (Período do PWM em ciclos)
+ * --            data (Valor do duty cycle em ciclos, de 0 a range)
+ * -- retorno -
+ * Configura o duty cycle do canal PWM especificado.
+ ***/
+void pwm_set_duty_cycle(unsigned channel, unsigned range, unsigned data);

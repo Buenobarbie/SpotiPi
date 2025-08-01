@@ -1,12 +1,10 @@
-#include "pi.h"
+#include "libpi.h"
 
 int main() {
-  gpio_init(23, GPIO_FUNC_OUTPUT);
+  gpio_init(18, GPIO_FUNC_ALT5); // GPIO 12 como PWM0
+  pwm_init(0); // Inicializa o PWM no canal 0
+  pwm_set_duty_cycle(0, 5000000, 500000); // Define o duty cycle para 50% 
   while (1) {
-    gpio_put(23, 0);
-    delay(5000000); // 5000000 = 2 segundos
-    gpio_put(23, 1);
-    delay(5000000);
   }
 
   return 0;
