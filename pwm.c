@@ -3,9 +3,12 @@
 #include <stdlib.h>
 #include "libpi.h"
 
-
+#define time 50
 
 void pwm_start(unsigned div){
+  PWM_REG(ctl) = 0; // Zerar o pwm reg
+  delay(time); 
+  
   // Habilita o PWM
   if (div == 0) {
     div = DEFAUL_DIV; // Se divisor for 0, usa o divisor padrão
@@ -13,14 +16,15 @@ void pwm_start(unsigned div){
 
   // Kill PWM clock
   CM_PWM_REG(ctl) = CM_PWM_CTL_KILL | CM_PWM_PASSWORD; 
-  delay(50);
+  delay(time);
 
   // Set divisor
   CM_PWM_REG(div) = CM_PWM_PASSWORD | (div << 12); 
 
   // Enable PWM clock with oscillator source
+  // uint32_t temp = CM_PWM_CTL_ENABLE | CM_PWM_CTL_SRC_OSC | CM_PWM_PASSWORD;
   CM_PWM_REG(ctl) = CM_PWM_CTL_ENABLE | CM_PWM_CTL_SRC_OSC | CM_PWM_PASSWORD;
-  delay(50);
+  delay(time);
 
   // For debugging
   // uint32_t cm_pwm_ctl = CM_PWM_REG(ctl);
@@ -43,6 +47,7 @@ void pwm_config(unsigned channel) {
   // Lê o valor atual: PWM_REG(ctl)
   // Limpa os 8 primeiros bits:  & ~0xFF
   // Seta os 8 primeiros bits como descrito acima: | 0x81
+  
   if (channel == 0) {
     PWM_REG(ctl) = (PWM_REG(ctl) & ~0xFF) | 0x81; // Configura PWM0
     // 
