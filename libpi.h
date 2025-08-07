@@ -158,7 +158,7 @@ char uart_getc(void);
  * Inicializa o periférico PWM no canal especificado.
  * Deve ser chamado antes de usar pwm_set_duty_cycle.
  ***/
-void pwm_config(unsigned channel);
+void pwm_config(unsigned int channel, bool use_fifo, bool repeat_on_empty);
 
 /***
  * pwm_set_duty_cycle
@@ -170,12 +170,18 @@ void pwm_config(unsigned channel);
  ***/
 void pwm_set_duty_cycle(unsigned channel, int range, int data);
 
-
 /***
  * pwm_start
- * -- parâmetros: div (divisor de clock, passar um inteiro ou 0 para usar o divisor padrão)
+ * -- parâmetros: div (divisor de clock, passar um inteiro ou 0 para usar o
+ *divisor padrão)
  * -- retorno -
  * Habilita o PWM para começar a gerar sinais.
  * Deve ser chamado após pwm_config e pwm_set_duty_cycle.
  ***/
 void pwm_start(float div);
+
+void pwm_set_polarity(int channel, int polarity);
+
+void pwm_clear_queue(void);
+int pwm_write_queue(uint32_t data);
+int pwm_full_queue();
