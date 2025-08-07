@@ -22,7 +22,7 @@
 #define ARM_MODE_HYPER 0b11010
 #define ARM_MODE_SYSTEM 0b11111
 
-#define DEFAUL_DIV 32
+#define DEFAULT_DIV 32
 #define CM_PWM_PASSWORD 0x5A000000
 #define CM_PWM_CTL_KILL 0x20
 #define CM_PWM_CTL_ENABLE 0x10
@@ -178,4 +178,4 @@ void pwm_set_duty_cycle(unsigned channel, int range, int data);
  * Habilita o PWM para começar a gerar sinais.
  * Deve ser chamado após pwm_config e pwm_set_duty_cycle.
  ***/
-void pwm_start(unsigned div);
+void pwm_start(float div);

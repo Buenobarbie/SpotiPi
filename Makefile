@@ -1,4 +1,4 @@
-FONTES = gpio.c uart.c asm.s main.c boot.s
+FONTES = pwm.c gpio.c uart.c asm.s main.c boot.s
 RPICPU = bcm2836
 
 ifeq (${RPICPU}, bcm2836)
@@ -13,7 +13,7 @@ else
 	endif
 endif
 
-TTY = /dev/ttyUSB0
+TTY = /dev/ttyUSB1
 
 ALVO = main
 
@@ -53,7 +53,7 @@ OBJ = $(FONTES:.s=.o)
 OBJETOS = $(OBJ:.c=.o)
 
 OPTS = -march=armv7-a -mtune=cortex-a7
-LDOPTS = -lgcc -L/usr/lib/gcc/arm-none-eabi/10.3.1/
+LDOPTS = -lgcc -L/usr/lib/gcc/arm-none-eabi/15.1.0/
 
 all: ${EXEC} ${IMAGE} ${LIST} ${HEXFILE}
 
@@ -107,10 +107,10 @@ clean:
 #
 gdb: ${EXEC}
 	@if pgrep openocd >/dev/null; then \
-		gdb-multiarch ${EXEC} \
+		gdb ${EXEC} \
 			-ex "target extended-remote: 3333" \
 			-ex "load"; \
-		else gdb-multiarch -b 115200 ${EXEC} \
+		else gdb -b 115200 ${EXEC} \
 		                -ex "target remote ${TTY}" \
 	                   -ex "load"; \
 	fi
