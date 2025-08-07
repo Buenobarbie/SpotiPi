@@ -7,9 +7,9 @@
 #define time 50
 
 void pwm_start(float div) {
-  // Não é necessário zerar o PWM_REG antes
-  // PWM_REG(ctl) = 0; // Zerar o pwm reg
-  // delay(time);
+  // PWM_REG(ctl) = 0; Funciona sem zerar o PWM_REG antes, mas talvez seja uma
+  // boa prática. delay(time); Funciona sem o delay, mas talvez seja bom ter
+
   // Habilita o PWM
   if (div <= 0 || div >= 4096) {
     div = DEFAULT_DIV; // Se divisor for 0, usa o divisor padrão
@@ -23,21 +23,21 @@ void pwm_start(float div) {
       (uint32_t)(frac_part * 4096); // multiplica por 2¹² para tirar os 12
                                     // primeiros bits da parte fracionária
 
-  // Kill PWM clock
+  // Mata o clock da PWM
   CM_PWM_REG(ctl) = CM_PWM_CTL_KILL | CM_PWM_PASSWORD;
 
-  // Set divisor
+  // Seta o divisor
   CM_PWM_REG(div) = CM_PWM_PASSWORD | (divi << 12) | divf;
 
-  // Enable PWM clock with oscillator source
-  // uint32_t temp = CM_PWM_CTL_ENABLE | CM_PWM_CTL_SRC_OSC | CM_PWM_PASSWORD;
+  // Habilita clock da PWM com o oscillator como fonte
   CM_PWM_REG(ctl) = CM_PWM_CTL_ENABLE | CM_PWM_CTL_SRC_OSC | CM_PWM_PASSWORD;
   // delay(time);
 
-  // For debugging
+  // PARA DEBUG (usamos isso de fato?)
   // uint32_t cm_pwm_ctl = CM_PWM_REG(ctl);
   uint32_t cm_pwm_div = CM_PWM_REG(div);
 
+  // O que é essa linha?
   // PWM_REG(ctl) = PWM_REG(ctl) | 0x1; ?
 }
 
@@ -69,9 +69,6 @@ void pwm_config(unsigned int channel, bool use_fifo, bool repeat_on_empty) {
     }
   }
 
-  // Escreve a configuração final no registrador de controle.
-  // O operador |= garante que não estamos desabilitando um canal ao configurar
-  // o outro.
   PWM_REG(ctl) |= settings;
 
   // Configura o PWM_CTL para o canal especificado

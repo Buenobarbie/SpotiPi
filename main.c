@@ -7,7 +7,7 @@ int main() {
 
   pwm_start(19.2); // Inicia o PWM com divisor 19.2
 
-  pwm_set_duty_cycle(0, 1000000, 100000); // DATA aqui é INUTIL para a FIFO
+  pwm_set_duty_cycle(0, 1000000, 100000); // DATA é INUTIL se usar a FIFO
   pwm_set_duty_cycle(1, 1000000, 100000);
 
   pwm_config(0, false, false); // Configura o PWM no canal 0
