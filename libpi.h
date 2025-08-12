@@ -28,6 +28,8 @@
 #define CM_PWM_CTL_ENABLE 0x10
 #define CM_PWM_CTL_SRC_OSC 0x01
 
+#include <stdbool.h>
+
 /***
  * delay
  * -- parâmetros: r0 (tempo)

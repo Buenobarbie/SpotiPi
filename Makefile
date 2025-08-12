@@ -13,7 +13,7 @@ else
 	endif
 endif
 
-TTY = /dev/ttyUSB1
+TTY = /dev/ttyUSB0
 
 ALVO = main
 
@@ -53,7 +53,7 @@ OBJ = $(FONTES:.s=.o)
 OBJETOS = $(OBJ:.c=.o)
 
 OPTS = -march=armv7-a -mtune=cortex-a7
-LDOPTS = -lgcc -L/usr/lib/gcc/arm-none-eabi/15.1.0/
+LDOPTS = -lgcc -L/usr/lib/gcc/arm-none-eabi/9.2.1/
 
 all: ${EXEC} ${IMAGE} ${LIST} ${HEXFILE}
 
@@ -107,10 +107,10 @@ clean:
 #
 gdb: ${EXEC}
 	@if pgrep openocd >/dev/null; then \
-		gdb ${EXEC} \
+		gdb-multiarch ${EXEC} \
 			-ex "target extended-remote: 3333" \
 			-ex "load"; \
-		else gdb -b 115200 ${EXEC} \
+		else gdb-multiarch -b 115200 ${EXEC} \
 		                -ex "target remote ${TTY}" \
 	                   -ex "load"; \
 	fi
