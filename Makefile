@@ -53,7 +53,7 @@ OBJ = $(FONTES:.s=.o)
 OBJETOS = $(OBJ:.c=.o)
 
 OPTS = -march=armv7-a -mtune=cortex-a7
-LDOPTS = -lgcc -L/usr/lib/gcc/arm-none-eabi/9.2.1/
+LDOPTS = -lgcc -L/usr/lib/gcc/arm-none-eabi/9.2.1/ # Alterar para a path do executável no seu computador
 
 all: ${EXEC} ${IMAGE} ${LIST} ${HEXFILE}
 
@@ -107,7 +107,7 @@ clean:
 #
 gdb: ${EXEC}
 	@if pgrep openocd >/dev/null; then \
-		gdb-multiarch ${EXEC} \
+		gdb-multiarch ${EXEC} \ # Alterar executável a depender do S.O. Por exemplo, no fedora linux só existe gdb, sem o multiarch.
 			-ex "target extended-remote: 3333" \
 			-ex "load"; \
 		else gdb-multiarch -b 115200 ${EXEC} \

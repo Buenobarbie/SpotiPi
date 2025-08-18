@@ -1,4 +1,3 @@
-
 #define GPIO_FUNC_INPUT 0
 #define GPIO_FUNC_OUTPUT 1
 #define GPIO_FUNC_ALT5 2
@@ -182,8 +181,39 @@ void pwm_set_duty_cycle(unsigned channel, int range, int data);
  ***/
 void pwm_start(float div);
 
+/***
+ * pwm_set_polarity
+ * -- parâmetros: channel (canal PWM, 0 ou 1)
+ * --             polarity (0 = normal, 1 = invertido)
+ * -- retorno -
+ * Define a polaridade do sinal PWM no canal especificado.
+ * Quando invertido, inverte o nível lógico do duty cycle.
+ ***/
 void pwm_set_polarity(int channel, int polarity);
 
+/***
+ * pwm_clear_queue
+ * -- parâmetros: -
+ * -- retorno -
+ * Limpa a FIFO do PWM, descartando todos os valores pendentes.
+ * Útil para reiniciar transmissões sem resíduos.
+ ***/
 void pwm_clear_queue(void);
+
+/***
+ * pwm_write_queue
+ * -- parâmetros: data (valor de duty cycle ou amostra a ser escrita na FIFO)
+ * -- retorno: 0 em caso de sucesso, -1 se a FIFO estiver cheia
+ * Escreve um valor na FIFO do PWM. Requer que o canal esteja configurado
+ * para uso de FIFO (use_fifo = true em pwm_config).
+ ***/
 int pwm_write_queue(uint32_t data);
-int pwm_full_queue();
+
+/***
+ * pwm_full_queue
+ * -- parâmetros: -
+ * -- retorno: 1 se a FIFO estiver cheia, 0 caso contrário
+ * Verifica se a FIFO do PWM está cheia, impedindo novas escritas até liberar
+ *espaço.
+ ***/
+int pwm_full_queue(void);

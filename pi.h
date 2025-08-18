@@ -1,19 +1,18 @@
-
 #ifndef __PI_H__
 #define __PI_H__
 
-#define GPIO_FUNC_INPUT          0
-#define GPIO_FUNC_OUTPUT         1
-#define GPIO_FUNC_ALT5           2
-#define GPIO_FUNC_ALT4           3
-#define GPIO_FUNC_ALT0           4
-#define GPIO_FUNC_ALT1           5
-#define GPIO_FUNC_ALT2           6
-#define GPIO_FUNC_ALT3           7
+#define GPIO_FUNC_INPUT 0
+#define GPIO_FUNC_OUTPUT 1
+#define GPIO_FUNC_ALT5 2
+#define GPIO_FUNC_ALT4 3
+#define GPIO_FUNC_ALT0 4
+#define GPIO_FUNC_ALT1 5
+#define GPIO_FUNC_ALT2 6
+#define GPIO_FUNC_ALT3 7
 
-#define GPIO_PULL_NONE           0
-#define GPIO_PULL_DOWN           1
-#define GPIO_PULL_UP             2
+#define GPIO_PULL_NONE 0
+#define GPIO_PULL_DOWN 1
+#define GPIO_PULL_UP 2
 
 void delay(unsigned ciclos);
 unsigned get_arm_mode(void);
@@ -33,8 +32,4 @@ void uart_putc(char c);
 void uart_puts(char *s);
 char uart_getc(void);
 
-void pwm_init(unsigned channel);
-void pwm_set_duty_cycle(unsigned channel, unsigned range, unsigned data);
-
 #endif
-
